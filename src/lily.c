@@ -25,6 +25,8 @@ int8_t lily_evaluate(uint16_t noughts, uint16_t crosses, char *bestmove) {
   if(bestmove)
     *bestmove = UTI_NULL;
 
+  if(lily_hasWon(crosses)) return 100;
+  if(lily_hasWon(noughts)) return -100;
   if(!numMoves) return 0;
 
   for(size_t i = 0; i < numMoves; i++) {
@@ -36,7 +38,7 @@ int8_t lily_evaluate(uint16_t noughts, uint16_t crosses, char *bestmove) {
     } else
       score = -lily_evaluate(alteredCrosses, noughts, nullptr);
 
-    if(score > bestscore) {
+    if(score >= bestscore) {
       bestscore = score;
       if(bestmove) *bestmove = legalmoves[i];
     }

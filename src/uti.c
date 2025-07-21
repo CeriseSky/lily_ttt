@@ -56,10 +56,16 @@ void UTI_quit(int argc, char **argv) {
 }
 
 void UTI_go(int argc, char **argv) {
+  if(!g_state.initialised) {
+    printf("uti_no\n");
+    return;
+  }
+
   uint16_t attacker = g_state.turn ? g_state.noughts : g_state.crosses;
   uint16_t defender = !g_state.turn ? g_state.noughts : g_state.crosses;
   char bestmove;
-  lily_evaluate(defender, attacker, &bestmove);
+  int16_t score = lily_evaluate(defender, attacker, &bestmove);
+  printf("info score %hi\n", score);
   printf("bestmove %c\n", bestmove);
 }
 
