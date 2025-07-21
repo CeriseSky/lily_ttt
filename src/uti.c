@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include "lily.h"
 
 UTI_State g_state = {0};
 
@@ -14,7 +15,7 @@ void UTI_uti(int argc, char **argv) {
 }
 
 void UTI_position(int argc, char **argv) {
-  if(!g_state.initialised || argc != 2) {
+  if(!g_state.initialised || argc > 2) {
     printf("uti_no\n");
     return;
   }
@@ -23,9 +24,12 @@ void UTI_position(int argc, char **argv) {
   g_state.noughts = 0;
   g_state.turn = 0;
 
+  if(argc == 1)
+    return;
+
   char *position = argv[1];
   for(size_t i = 0; i < strlen(position); i++) {
-    uint16_t *board = g_state.turn ? &g_state.crosses : &g_state.noughts;
+    uint16_t *board = g_state.turn ? &g_state.noughts : &g_state.crosses;
     uint16_t oldBoard = g_state.crosses | g_state.noughts;
     g_state.turn = !g_state.turn;
 
@@ -45,8 +49,6 @@ void UTI_position(int argc, char **argv) {
 
     *board |= move;
   }
-
-  fprintf(stderr, "%b %b", g_state.noughts, g_state.crosses);
 }
 
 void UTI_quit(int argc, char **argv) {
@@ -54,7 +56,10 @@ void UTI_quit(int argc, char **argv) {
 }
 
 void UTI_go(int argc, char **argv) {
-  char bestmove = UTI_NULL;
+  uint16_t attacker = g_state.turn ? g_state.noughts : g_state.crosses;
+  uint16_t defender = !g_state.turn ? g_state.noughts : g_state.crosses;
+  char bestmove;
+  lily_evaluate(defender, attacker, &bestmove);
   printf("bestmove %c\n", bestmove);
 }
 

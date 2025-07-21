@@ -37,7 +37,6 @@ General
 GUI -> Engine
 [*] - uti
 [ ] - setoption
-[ ] - utinewgame
 [*] - position
 [*] - go
 [*] - quit
