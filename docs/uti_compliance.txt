@@ -1,0 +1,56 @@
+UTI (Universal Tic-Tac-Toe Interface) by me, based on UCI
+I would recommend reading the UCI documentation before this
+
+The main difference between this and UCI is that the engine should not
+respond to UTI commands from the GUI until it is ready as there is no isready
+command
+
+Move notation is a single letter from A to I, which corresponds as follows
+(Best viewed with a monospace font)
+A | B | C
+--+---+--
+D | E | F
+--+---+--
+G | H | I
+The engine can also send X which is the nullmove that skips its turn. This is
+for testing only and should not be treated as a legal move by the engine.
+
+Position is sent as a string of all previous moves where X goes first.
+For example, "position EGADCB" codes for:
+X | O |X 
+--+---+--
+O | X |  
+--+---+--
+O |   |  
+
+[\] - Not needed
+[ ] - Not implemented
+[/] - Partial Support
+[*] - Full Support
+
+General
+[*] - OS Independent
+[*] - Communicates on stdin and stdout
+[*] - Waits for input from GUI to do anything
+[*] - Sends uti_no if uti is used incorrectly (e.g. utinewgame before uti)
+
+GUI -> Engine
+[*] - uti
+[ ] - setoption
+[ ] - utinewgame
+[*] - position
+[*] - go
+[*] - quit
+
+Engine -> GUI
+[*] - id
+[ ] - option
+[*] - utiok
+[ ] - info
+[*] - bestmove
+[*] - uti_no
+
+Options
+[ ] - UTI_Opponent <computer|human> <name>
+[ ] - UTI_EngineAbout
+
