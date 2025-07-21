@@ -16,4 +16,5 @@ see docs/uti_compliance.txt for info. Here is an example session:
 -> bestmove E
 <- quit
 ```
-
+Arrows aren't part of the commands by the way, they just show the direction
+the message is going (<- to the engine, -> from the engine)
